@@ -1,0 +1,16 @@
+{
+  "name": "timer-stopwatch",
+  "title": "Timer Stopwatch - A simple timer/stopwatch module",
+  "description": "A stopwatch/timer module for all your timekeeping needs",
+  "authors": [
+    {
+      "name": "kckaiwei",
+      "email": "kckaiwei@gmail.com"
+    }
+  ],
+  "version": "1.0.0",
+  "minimumCoreVersion": "0.5.0",
+  "scripts": [
+    "scripts/timer.js"
+  ]
+}
