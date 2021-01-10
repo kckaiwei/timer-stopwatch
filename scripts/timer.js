@@ -7,19 +7,25 @@ class TimerLayer extends CanvasLayer {
 
     setButtons() {
         timerLayer.newButtons = {
-            activeTool: 'Create Timer',
             name: 'timer',
-            icon: 'fa fa-hourglass-half',
+            title: 'CONTROLS.Timer',
             layer: 'TimerLayer',
-            title: 'Timer Controls',
+            icon: 'fa fa-hourglass-half',
             tools: [
                 {
-                    icon: "fas fas fa-square",
-                    name: "Create Timer",
-                    title: "Configure the grid by drawing a square",
+                    icon: "fa fa-plus",
+                    name: "create",
+                    title: "CONTROLS.TimerCreate",
                     onClick: TimerLayer.newTimer
                 },
+                {
+                    icon: "fa fa-hourglass-start",
+                    name: "view",
+                    title: "CONTROLS.TimerSelect",
+                    onClick: TimerLayer.viewTimers
+                },
             ],
+            activeTool: 'create',
         };
     }
 
@@ -30,31 +36,19 @@ class TimerLayer extends CanvasLayer {
         canvas.stage.addListener('mousedown', TimerLayer.addIconListeners);
     }
 
+
     /*
-    Adds listeners to the Icons via a switch method
-    Not actually sure this is the best way to do it, copying scaleGrid's methods for now
+    Open a window to create a timer
      */
-    addIconListeners(e) {
-        console.log(e)
-    }
-
-
     newTimer() {
-        console.log("timering")
+        console.log("timering");
     }
 
-    setUpControls() {
-        let style = new PIXI.TextStyle({      //this  here defines the style of  the text being displayed.  Can be changed later  at runtime if needed.
-            dropShadow: true,
-            dropShadowDistance: 1,
-            fill: "#4bf02a",
-            fontSize: 35,
-            lineJoin: "round",
-            strokeThickness: 4
-        });
+    /*
+    Show all current timers
+     */
+    viewTimer() {
 
-        TimerLayer.testControl = new PIXI.Text("this is test", style);
-        canvas.controls.addChild(TimerLayer.testControl);
     }
 
     /*
@@ -62,9 +56,13 @@ class TimerLayer extends CanvasLayer {
     */
     hookButtons() {
         Hooks.on('getSceneControlButtons', (controls) => {
+            console.log(controls)
             if (game.user.data.role == 4) {
+                /* When buttons are clicked, Foundry looks for the layer among the stage's children
+                   Canvas Layer's activate() is then called
+                */
+                canvas.stage.addChild(timerLayer);
                 controls.push(timerLayer.newButtons);
-                timerLayer.setUpControls();
             }
         });
     }
