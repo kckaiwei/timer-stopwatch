@@ -6,6 +6,14 @@ class TimerLayer extends CanvasLayer {
     }
 
     setButtons() {
+        /*
+        Default button behavior is as an "tool", which uses this behavior
+          tool.onClick()
+        Adding `button: true` changes behavior to be a button, which we want in this instance
+          tool.onClick()
+        Setting `toggle: true` changes it to a toggle, which Foundry uses this behavior
+          tool.onClick(tool.active)
+         */
         timerLayer.newButtons = {
             name: 'timer',
             title: 'CONTROLS.Timer',
@@ -16,24 +24,19 @@ class TimerLayer extends CanvasLayer {
                     icon: "fa fa-plus",
                     name: "create",
                     title: "CONTROLS.TimerCreate",
-                    onClick: TimerLayer.newTimer
+                    onClick: () => timerLayer.newTimer(),
+                    button: true
                 },
                 {
                     icon: "fa fa-hourglass-start",
-                    name: "view",
-                    title: "CONTROLS.TimerSelect",
-                    onClick: TimerLayer.viewTimers
+                    name: "show",
+                    title: "CONTROLS.TimerShow",
+                    onClick: () => timerLayer.showTimers(),
+                    button: true
                 },
             ],
             activeTool: 'create',
         };
-    }
-
-    /*
-    Adds listeners to the newly added buttons
-     */
-    _addListeners() {
-        canvas.stage.addListener('mousedown', TimerLayer.addIconListeners);
     }
 
 
@@ -47,8 +50,8 @@ class TimerLayer extends CanvasLayer {
     /*
     Show all current timers
      */
-    viewTimer() {
-
+    showTimers() {
+        console.log("this shows timers");
     }
 
     /*
