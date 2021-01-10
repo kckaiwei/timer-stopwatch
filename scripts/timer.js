@@ -56,7 +56,11 @@ class TimerLayer extends CanvasLayer {
     */
     hookButtons() {
         Hooks.on('getSceneControlButtons', (controls) => {
-            console.log(controls)
+            /* getSceneControlButtons is called on any button click on the side toolbar
+               Without deactivating it first, timerLayer will always be counted as "active"
+               And can never be selected
+            */
+            timerLayer.deactivate();
             if (game.user.data.role == 4) {
                 /* When buttons are clicked, Foundry looks for the layer among the stage's children
                    Canvas Layer's activate() is then called
